@@ -38,6 +38,10 @@ int main() {
         cout << "NO" << endl;
         continue;
       }
+      //prevent tplace overflow
+    } else if ((pplace == 0 && tplace != s.size() - 1) || (pplace != 0 && tplace == s.size() - 1)) {
+      cout << "NO" << endl;
+      continue;
     }
     if (tplace - pplace == 2) {
       if (s[pplace+1] != 'A') {
