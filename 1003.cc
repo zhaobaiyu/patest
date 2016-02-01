@@ -7,6 +7,28 @@ using std::string;
 int main() {
   int n;
   cin >> n;
+  for (int i = 0; i < n; ++i) {
+    string s;
+    cin >> s;
+    string::size_type a1 = 0, a2 = 0, a3 = 0;
+    while (s[a1] == 'A') ++a1;
+    if (s[a1] == 'P') {
+      while(s[a1+1+a2] == 'A') ++a2;
+      if (s[a1+1+a2] == 'T') {
+        while (s[a1+a2+2+a3] == 'A') ++a3;
+        if (a1+a2+a3+2 == s.size() && a2 >= 1 && a3 == a1*a2) {
+          cout << "YES" << endl;
+          continue;
+        }
+      }
+    }
+    cout << "NO" << endl;
+  }
+  return 0;
+}
+  /* another way, but complex
+  int n;
+  cin >> n;
   for (int i = 1; i <= n; ++i) {
     string s;
     cin >> s;
@@ -75,4 +97,4 @@ int main() {
   }
   return 0;
 }
-    
+  */
