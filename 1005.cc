@@ -15,7 +15,7 @@ int main() {
         temp = temp/2;
         if (temp < 105) a[temp] = true;
       } else {
-        temp = temp*3 + 1;
+        temp = (temp*3 + 1)/2;  // read the problem carefully!!!
         if (temp < 105) a[temp] = true;
       }
   }
