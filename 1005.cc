@@ -5,9 +5,11 @@ using std::endl;
 int main() {
   int n, t[105];
   bool a[105], b[105];
-  for (int i = 1; i <= 100; ++i) b[i] = false;
+  for (int i = 1; i <= 100; ++i) {
+    b[i] = false;
+    a[i] = false;
+  }
   cin >> n;
-  for (int i = 1; i <= n; ++i) a[i] = false;
   for (int i = 1; i <= n; ++i) {
     cin >> t[i];
     b[t[i]] = true;
