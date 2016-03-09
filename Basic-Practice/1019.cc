@@ -1,13 +1,14 @@
 #include <stdio.h>
 int main() {
-  int n, temp, n1, n2;
+  int n, temp, n1, n2, first = 1;
   scanf("%d", &n);
   int wei[4];
   wei[0] = n/1000, wei[1] = n/100%10, wei[2] = n/10%10, wei[3] = n%10;
   if (wei[0] == wei[1] && wei[1] == wei[2] && wei[2] == wei[3]) {
     printf("%d - %d = 0000\n", n, n);
   } else {
-    while (n != 6174) {
+    while (first || n != 6174) { // if the first n is 6174
+      first = 0;
       wei[0] = n/1000, wei[1] = n/100%10, wei[2] = n/10%10, wei[3] = n%10;
       for (int i = 0; i < 4; ++i) 
         for (int j = i + 1; j < 4; ++j) 
