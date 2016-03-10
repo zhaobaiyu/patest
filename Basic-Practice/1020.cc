@@ -1,18 +1,18 @@
 #include <stdio.h>
 int main() {
   typedef struct {
-    int a, b;
-    double c;
+    double a, b, c; // a & b may not be integer
   } yuebing;
-  int n, d;
+  int n, d1;
   yuebing yb[1005], temp;
-  scanf("%d%d", &n, &d);
+  scanf("%d%d", &n, &d1);
+  double d = d1;
   for (int i = 0; i < n; ++i) {
-    scanf("%d", &yb[i].a);
+    scanf("%lf", &yb[i].a);
   }
   for (int i = 0; i < n; ++i) {
-    scanf("%d", &yb[i].b);
-    yb[i].c = 1.0*yb[i].b/yb[i].a;
+    scanf("%lf", &yb[i].b);
+    yb[i].c = yb[i].b/yb[i].a;
   }
   for (int i = 0; i < n; ++i) {
     for (int j = i + 1; j < n; ++j) {
@@ -33,6 +33,7 @@ int main() {
     }
     d = d - yb[i].a;
     ++i;
+    if (i == n) break; // d may > the sum of yb[].a
   }
   printf("%.2lf\n", sy);
   return 0;
