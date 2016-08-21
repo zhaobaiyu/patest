@@ -13,6 +13,12 @@ using std::map;
 using std::string;
 using std::pair;
 
+void printpath(int dest, const vector<int> &pre, const vector<string> &redict) {
+  if (dest != 0)
+    printpath(pre[dest], pre, redict);
+  cout << redict[dest] << "->";
+}
+  
 int main() {
   std::ios::sync_with_stdio(false);
   int n, k, int_temp;
@@ -72,22 +78,15 @@ int main() {
       if (!visited[node_temp]) {
         if (dist[node_temp] == dist[node] + d_temp) {
           // cout << node_temp << " : " << node << endl; // 
-          ++choice[node_temp];
+          choice[node_temp] += choice[node];
         }        
-        if (dist[node_temp] == INT_MAX) {
-          // cout << "flag1: " << node_temp << endl; //
-          dist[node_temp] = dist[node] + d_temp;
-          happ[node_temp] = happ[node] + hap[node_temp];
-          city[node_temp] = city[node] + 1;
-          pre[node_temp] = node;
-          choice[node_temp] = 1;
-        } else if (dist[node_temp] > dist[node] + d_temp) {
+        if (dist[node_temp] > dist[node] + d_temp) {
           // cout << "flag2: " << node_temp << endl; //
           dist[node_temp] = dist[node] + d_temp;
           happ[node_temp] = happ[node] + hap[node_temp];
           city[node_temp] = city[node] + 1;
           pre[node_temp] = node;
-          choice[node_temp] = 1;
+          choice[node_temp] = choice[node];
         } else if (dist[node_temp] == dist[node] + d_temp && happ[node_temp] < happ[node] + hap[node_temp]) {
           // cout << "flag3: " << node_temp << endl; //          
           happ[node_temp] = happ[node] + hap[node_temp];
@@ -102,21 +101,11 @@ int main() {
     }
   }
 
-  int temp_city = dict["ROM"], sum = 1;
-  int dest = temp_city;
-  vector<string> ans;
-  // cout << "flag A:" << choice[temp_city] << endl; //  
-  while (temp_city != -1) {
-    ans.push_back(redict[temp_city]);
-    sum *= choice[temp_city];
-    temp_city = pre[temp_city];
-  }
-  // cout << "flag B:" << dest << endl; //
-  cout << sum << ' ' << dist[dest] << ' ' << happ[dest] << ' ' << happ[dest]/city[dest] << endl;
-  cout << ans[ans.size() - 1];
-  for (int i = ans.size() - 2; i >= 0; --i) 
-    cout << "->" << ans[i];
-  cout << endl;
+  int dest = dict["ROM"];
+  // cout << "flag A:" << choice[temp_city] << endl; //
+  cout << choice[dest] << ' ' << dist[dest] << ' ' << happ[dest] << ' ' << happ[dest]/city[dest] << endl;
+  printpath(pre[dest], pre, redict);
+  cout << "ROM" << endl;
   return 0;
 }
   
