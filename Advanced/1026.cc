@@ -49,10 +49,20 @@ int main() {
     mainq.erase(mainq.begin());
     if (int1 < 10000) {
       if (!tables.empty()) {
+        auto table_iter = tables.begin();
+        if (int2 == 1) 
+          for (auto iter = tables.begin(); iter != tables.end(); ++iter) 
+            if (is_vip_table[*iter]) {
+              table_iter = iter;
+              break;
+            }
         // mainq.insert({time + int1, {0, *tables.begin()}});
-        mainq.emplace(time + int1, 10000, *tables.begin());
-        ++t_sum[*tables.begin()];
-        tables.erase(tables.begin());
+        if (is_vip_table[*table_iter])
+          mainq.emplace(time + int1, 10000, *table_iter);
+        else
+          mainq.emplace(time + int1, 10001, *table_iter);          
+        ++t_sum[*table_iter];
+        tables.erase(table_iter);
         printtime(time);
         printf(" ");
         printtime(time);
@@ -78,7 +88,10 @@ int main() {
           }
         }
         // mainq.insert({time + play_t, {0, int2}});
-        mainq.emplace(time + play_t, 10000, int2);
+        if (is_vip_table[int2])
+          mainq.emplace(time + play_t, 10000, int2);
+        else
+          mainq.emplace(time + play_t, 10001, int2);                  
         ++t_sum[int2];
         printtime(time2);
         printf(" ");
